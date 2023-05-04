@@ -4,7 +4,7 @@ const JWT_SECRET = "secret170117862202";
 
 
 const fetchuser = async (req, res, next) => {
-    const { token } = await req.cookies;
+    const { token } =  req.cookies;
     if (!token) return res.status(401).json({ msg: 'Authorization Failed.' });
 
     try {

@@ -44,7 +44,14 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET, { expiresIn: "10d" });
-      res.cookie('token', authtoken);
+
+      res.cookie("token", authtoken, {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: true,
+        domain: 'http://localhost:3000',
+        secure:true
+      });
+
       res.json({ authtoken });
     } catch (err) {
       console.error(err.message);
@@ -153,7 +160,12 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET, { expiresIn: "10d" });
-      res.cookie('token', authtoken);
+      res.cookie("token", authtoken, {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: true,
+        secure:true,
+        domain: 'http://localhost:3000',
+      });
       res.json({ authtoken });
     } catch (err) {
       console.error(err.message);
@@ -198,8 +210,12 @@ router.post(
       };
       const role = user.role;
       const authtoken = jwt.sign(data, JWT_SECRET, { expiresIn: "10d" });
-      res.cookie('token', authtoken, 'role', role);
-      res.cookie('role', role);
+      res.cookie("token", authtoken, 'role', role,  {
+        expires: new Date(Date.now() + 86400000),
+        httpOnly: true,
+        secure:true,
+        domain: 'http://localhost:3000',
+      });
       res.json({ authtoken, role });
 
     } catch (err) {
